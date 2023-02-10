@@ -1,4 +1,6 @@
-# cyber-project
+# sorte-io
+
+version 1.0
 
 # 📝 Description
 
@@ -10,10 +12,10 @@ python main.py
 
 # 👷 Authors
 
-- [**Felipe R. Gomes**](https://github.com/FelipeRGomes)([**linkedin**](https://www.linkedin.com/in/felipe-gomes-bd/)) - Owner & Developer
+- [**Mateus Acauhi**](https://github.com/Acauhi99)([**linkedin**](https://www.linkedin.com/in/acauhi/)) - Owner & Developer
 - [**Johnnick F. Landim**](https://github.com/johnnickjf)([**linkedin**](https://www.linkedin.com/in/johnnickjf/)) - Owner & Developer
 
 # 📝 License
 
-Copyright © 2022 [**Johnnick F. Landim**](https://github.com/johnnickjf)  
+Copyright © 2023 [**Johnnick F. Landim**](https://github.com/johnnickjf)  
 This project is [MIT](https://opensource.org/licenses/MIT) licensed
