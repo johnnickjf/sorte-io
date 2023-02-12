@@ -8,7 +8,15 @@ This repository is for the purposes of studies.
 
 ## ⚙ Running the app
 
-python main.py
+poetry add <package>
+
+poetry add --dev <package>
+
+poetry install
+
+Run: uvicorn main:app --reload
+
+pip install -r requirements.txt
 
 # 👷 Authors
 
