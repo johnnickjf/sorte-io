@@ -1,8 +1,10 @@
-# sorte-io
+# 💵 Sorte-io
 
-version 1.0
+version 1.1.0
 
 # 📝 Description
+
+The goal of this project is to create from scratch a lottery web application where people can choose numbers and compete for prizes.
 
 This repository is for the purposes of studies.
 
