@@ -9,3 +9,30 @@ GET http://127.0.0.1:8000/hello/User
 Accept: application/json
 
 ###
+
+GET http://127.0.0.1:8000/users
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/user/1
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/delete/1
+Accept: application/json
+
+###
+
+POST http://127.0.0.1:8000/user
+Content-Type: application/json
+
+{
+    "name": "Johnnick",
+    "password": "senha123",
+    "email": "johnnick3@hotmail.com",
+    "telephone": "32999999999"
+}
+
+###
