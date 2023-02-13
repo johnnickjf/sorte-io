@@ -1,19 +1,19 @@
 from sqlalchemy.orm import Session
-from src.schemas import schemas
+from src.application.entities.user import User
 from src.infra.models import models
 
 
-class RepositoryUser:
+class UserRepository:
 
     def __init__(self, db: Session):
         self.db = db
 
-    def insert(self, user: schemas.User):
-        db_user = models.User(name=user.name, password=user.password, email=user.email, telephone=user.telephone)
-        self.db.add(db_user)
+    def insert(self, user: User):
+        user_model = models.User(name=user.name, password=user.password, email=user.email, telephone=user.telephone)
+        self.db.add(user_model)
         self.db.commit()
-        self.db.refresh(db_user)
-        return db_user
+        self.db.refresh(user_model)
+        return user_model
 
     def select(self, user_id: int):
         user = self.db.query(models.User).filter(models.User.id == user_id).first()
