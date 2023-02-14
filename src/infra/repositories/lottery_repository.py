@@ -9,7 +9,7 @@ class LotteryRepository:
         self.db = db
 
     def insert(self, lottery: Lottery):
-        lottery_model = models.Lottery(name=lottery.name, description=lottery.description, user=lottery.user.id,
+        lottery_model = models.Lottery(name=lottery.name, description=lottery.description, user=lottery.user,
                                        max_number=lottery.max_number, price=lottery.price)
         self.db.add(lottery_model)
         self.db.commit()
@@ -18,6 +18,11 @@ class LotteryRepository:
 
     def select(self, user_id: int):
         pass
+
+    def select_by_user(self, user_id: int):
+        print(user_id)
+        lotteries = self.db.query(models.Lottery).filter(models.Lottery.user == user_id).all()
+        return lotteries
 
     def select_all(self):
         pass
