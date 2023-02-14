@@ -15,7 +15,7 @@ Accept: application/json
 
 ###
 
-GET http://127.0.0.1:8000/user/1
+GET http://127.0.0.1:8000/user/3
 Accept: application/json
 
 ###
@@ -29,10 +29,20 @@ POST http://127.0.0.1:8000/user
 Content-Type: application/json
 
 {
-    "name": "Johnnick",
+    "name": "John Nick",
     "password": "senha123",
-    "email": "johnnick3@hotmail.com",
+    "email": "johnnick+3@hotmail.com",
     "telephone": "32999999999"
 }
 
 ###
+
+POST http://127.0.0.1:8000/lottery/1
+Content-Type: application/json
+
+{
+    "name": "Lottery 1",
+    "description": "Lottery 1 description",
+    "price": 0.0,
+    "max_number": 100
+}

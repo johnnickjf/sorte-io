@@ -17,6 +17,7 @@ python-dotenv = "^0.21.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.1"
+pyclean = "^2.6.0"
 
 [build-system]
 requires = ["poetry-core"]

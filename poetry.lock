@@ -228,6 +228,18 @@ dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
+name = "pyclean"
+version = "2.6.0"
+description = "Pure Python cross-platform pyclean. Clean up your Python bytecode."
+category = "dev"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pyclean-2.6.0-py3-none-any.whl", hash = "sha256:fcf08662f86e146c0a1509d65a3624102797a74b1b65dacace2823e64462a52d"},
+    {file = "pyclean-2.6.0.tar.gz", hash = "sha256:9badd0a7f1539f522479e2db17f79df24c09e0300eeb696d37e3d40585078e27"},
+]
+
+[[package]]
 name = "pydantic"
 version = "1.10.4"
 description = "Data validation and settings management using python type hints"
@@ -459,4 +471,4 @@ standard = ["colorama (>=0.4)", "httptools (>=0.5.0)", "python-dotenv (>=0.13)",
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "e223360a9a01f92b9b5e72c83f725c7862fe9008d6e58035e78afd1b593dbdfc"
+content-hash = "e82df9a6fecc1d8b2c7b84b75b0aa3060c438439f05ad6dd5df886616263df09"

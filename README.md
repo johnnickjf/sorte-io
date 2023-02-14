@@ -10,6 +10,8 @@ This repository is for the purposes of studies.
 
 ## ⚙ Running the app
 
+pytest -v
+
 poetry add <package>
 
 poetry add --dev <package>
