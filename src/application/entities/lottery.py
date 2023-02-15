@@ -1,4 +1,3 @@
-from src.application.entities.user import User
 from pydantic import BaseModel, Field
 from datetime import datetime
 from decimal import Decimal

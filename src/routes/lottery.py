@@ -7,7 +7,7 @@ from src.application.entities.lottery import Lottery
 route = APIRouter()
 
 
-@route.post('/lottery/{user_id}', status_code=201)
+@route.post('/lottery/{user_id}', status_code=status.HTTP_201_CREATED)
 async def create_lottery(lottery: Lottery, user_id: int, db: Session = Depends(get_db)):
     lottery.user = user_id
     lottery = LotteryRepository(db).insert(lottery)

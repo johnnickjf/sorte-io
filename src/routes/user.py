@@ -9,8 +9,11 @@ route = APIRouter()
 
 @route.post('/register', status_code=201, response_model=User)
 async def create_user(user: UserCreate, db: Session = Depends(get_db)):
-    user = UserRepository(db).insert(user)
-    return user
+    try:
+        user = UserRepository(db).insert(user)
+        return user
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
 
 @route.get('/user/{user_id}', status_code=200, response_model=User)
@@ -21,7 +24,7 @@ async def return_user(user_id: int, db: Session = Depends(get_db)):
     return user
 
 
-@route.get('/users')
+@route.get('/users', status_code=200, response_model=list[User])
 async def return_all_users(db: Session = Depends(get_db)):
     users = UserRepository(db).select_all()
     return users

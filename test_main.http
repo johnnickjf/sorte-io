@@ -15,7 +15,7 @@ Accept: application/json
 
 ###
 
-GET http://127.0.0.1:8000/user/3
+GET http://127.0.0.1:8000/user/c127e886-64ca-4188-a7ce-7625faa4e80d
 Accept: application/json
 
 ###
