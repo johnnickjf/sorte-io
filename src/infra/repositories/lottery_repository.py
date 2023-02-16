@@ -1,5 +1,4 @@
 from sqlalchemy.orm import Session
-from src.application.entities.lottery import Lottery
 from src.infra.models.models import Lottery
 
 
@@ -16,19 +15,30 @@ class LotteryRepository:
         self.db.refresh(lottery_model)
         return lottery_model
 
-    def select(self, user_id: int):
-        pass
+    def select(self, lottery_id: int):
+        lottery_model = self.db.query(Lottery).filter(Lottery.id == lottery_id).first()
+        return lottery_model
 
     def select_by_user(self, user_id: int):
-        print(user_id)
-        lotteries = self.db.query(Lottery).filter(Lottery.user == user_id).all()
-        return lotteries
+        lottery_model = self.db.query(Lottery).filter(Lottery.user == user_id).all()
+        return lottery_model
 
     def select_all(self):
-        pass
+        lotteries_models = self.db.query(Lottery).all()
+        return lotteries_models
 
-    def update(self):
-        pass
+    def update(self, lottery: Lottery):
+        lottery_model = self.db.query(Lottery).filter(Lottery.id == lottery.id).first()
+        lottery_model.name = lottery.name
+        lottery_model.description = lottery.description
+        lottery_model.max_number = lottery.max_number
+        lottery_model.price = lottery.price
+        self.db.commit()
+        self.db.refresh(lottery_model)
+        return lottery_model
 
-    def delete(self, user_id: int):
-        pass
+    def delete(self, lottery_id: int):
+        lottery_model = self.db.query(Lottery).filter(Lottery.id == lottery_id).first()
+        self.db.delete(lottery_model)
+        self.db.commit()
+        return lottery_model
