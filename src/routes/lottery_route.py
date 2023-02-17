@@ -17,7 +17,7 @@ async def create_lottery(lottery: Lottery, user_id: int, db: Session = Depends(g
 
 
 @route.get('/lottery/{lottery_id}')
-async def return_user_lottery(lottery_id: int, db: Session = Depends(get_db)):
+async def select_lottery(lottery_id: int, db: Session = Depends(get_db)):
     lottery = LotteryRepository(db).select(lottery_id)
     if not lottery:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lottery not found")
@@ -25,15 +25,15 @@ async def return_user_lottery(lottery_id: int, db: Session = Depends(get_db)):
 
 
 @route.get('/user/lotteries/{user_id}')
-async def return_user_lotteries(user_id: int, db: Session = Depends(get_db)):
+async def select_user_lotteries(user_id: int, db: Session = Depends(get_db)):
     lotteries = LotteryRepository(db).select_by_user(user_id)
     if not lotteries:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lotteries not found")
     return lotteries
 
 
-@route.get('/all/lottery')
-async def return_all_lotteries(db: Session = Depends(get_db)):
+@route.get('/all/lotteries')
+async def select_all_lotteries(db: Session = Depends(get_db)):
     lotteries = LotteryRepository(db).select_all()
     if not lotteries:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lotteries not found")
