@@ -16,7 +16,7 @@ async def create_user(user: UserCreate, db: Session = Depends(get_db)):
 
 
 @route.get('/select/user/{user_id}', status_code=200, response_model=User)
-async def select_user(user_id: int, db: Session = Depends(get_db)):
+async def select_user(user_id: str, db: Session = Depends(get_db)):
     user = UserRepository(db).select(user_id)
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
@@ -24,7 +24,7 @@ async def select_user(user_id: int, db: Session = Depends(get_db)):
 
 
 @route.put('/update/user/{user_id}', status_code=200, response_model=User)
-async def update_user(user_id: int, user_updated: UserCreate, db: Session = Depends(get_db)):
+async def update_user(user_id: str, user_updated: UserCreate, db: Session = Depends(get_db)):
     user_updated = UserRepository(db).update(user_id, user_updated)
     if not user_updated:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
@@ -40,7 +40,7 @@ async def select_all_users(db: Session = Depends(get_db)):
 
 
 @route.delete('/delete/user/{user_id}')
-async def delete_user(user_id: int, db: Session = Depends(get_db)):
+async def delete_user(user_id: str, db: Session = Depends(get_db)):
     user = UserRepository(db).delete(user_id)
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")

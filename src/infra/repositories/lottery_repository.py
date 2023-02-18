@@ -15,11 +15,11 @@ class LotteryRepository:
         self.db.refresh(lottery_model)
         return lottery_model
 
-    def select(self, lottery_id: int):
+    def select(self, lottery_id: str):
         lottery_model = self.db.query(Lottery).filter(Lottery.id == lottery_id).first()
         return lottery_model
 
-    def select_by_user(self, user_id: int):
+    def select_by_user(self, user_id: str):
         lottery_model = self.db.query(Lottery).filter(Lottery.user == user_id).all()
         return lottery_model
 
@@ -33,11 +33,12 @@ class LotteryRepository:
         lottery_model.description = lottery.description
         lottery_model.max_number = lottery.max_number
         lottery_model.price = lottery.price
+        lottery_model.status = lottery.status
         self.db.commit()
         self.db.refresh(lottery_model)
         return lottery_model
 
-    def delete(self, lottery_id: int):
+    def delete(self, lottery_id: str):
         lottery_model = self.db.query(Lottery).filter(Lottery.id == lottery_id).first()
         self.db.delete(lottery_model)
         self.db.commit()

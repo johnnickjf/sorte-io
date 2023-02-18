@@ -1,9 +1,10 @@
 from pydantic import EmailStr, Field, BaseModel
 from datetime import datetime
+from uuid import UUID
 
 
 class User(BaseModel):
-    id: int = None
+    id: str = None
     name: str = Field(..., min_length=3, max_length=50)
     email: EmailStr = Field(...)
     telephone: str = Field(..., min_length=8)

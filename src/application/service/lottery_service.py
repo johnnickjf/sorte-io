@@ -1,16 +1,48 @@
-from src.application.entities.lottery import Lottery
-from src.infra.repositories.lottery_repository import LotteryRepository
+from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
+from src.infra.config.database import get_db
+from src.infra.repositories.lottery_repository import LotteryRepository
+from src.application.entities.lottery import Lottery
 
 
-def create(lottery: Lottery, user_id: int, db: Session):
-    lottery.user = user_id
-    lottery = LotteryRepository(db).insert(lottery)
-    return lottery
+class LotteryService:
+    def __init__(self, db: Session):
+        self.db = db
+        self.repository = LotteryRepository(db)
 
+    def create_lottery(self, lottery: Lottery, user_id: str):
+        lottery.user = user_id
+        existing_lottery = self.repository.select(lottery.id)
+        if existing_lottery:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Lottery already exists")
+        return self.repository.insert(lottery)
 
-def user_lotteries(user_id: int, db: Session):
-    lotteries = LotteryRepository(db).select_by_user(user_id)
-    if lotteries:
+    def select_lottery(self, lottery_id: str):
+        lottery = self.repository.select(lottery_id)
+        if not lottery:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lottery not found")
+        return lottery
+
+    def select_user_lotteries(self, user_id: str):
+        lotteries = self.repository.select_by_user(user_id)
+        if not lotteries:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lotteries not found")
         return lotteries
-    raise "Lotteries not found"
+
+    def select_all_lotteries(self):
+        lotteries = self.repository.select_all()
+        if not lotteries:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lotteries not found")
+        return lotteries
+
+    def update_lottery(self, lottery_updated: Lottery):
+        lottery = self.repository.update(lottery_updated)
+        if not lottery:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lottery not found")
+        return lottery
+
+    def delete_lottery(self, lottery_id: str):
+        lottery = self.repository.delete(lottery_id)
+        if not lottery:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lottery not found")
+        return lottery
