@@ -29,17 +29,19 @@ class LotteryRepository:
 
     def update(self, lottery: Lottery):
         lottery_model = self.db.query(Lottery).filter(Lottery.id == lottery.id).first()
-        lottery_model.name = lottery.name
-        lottery_model.description = lottery.description
-        lottery_model.max_number = lottery.max_number
-        lottery_model.price = lottery.price
-        lottery_model.status = lottery.status
-        self.db.commit()
-        self.db.refresh(lottery_model)
+        if lottery_model and lottery:
+            lottery_model.name = lottery.name
+            lottery_model.description = lottery.description
+            lottery_model.max_number = lottery.max_number
+            lottery_model.price = lottery.price
+            lottery_model.status = lottery.status
+            self.db.commit()
+            self.db.refresh(lottery_model)
         return lottery_model
 
     def delete(self, lottery_id: str):
         lottery_model = self.db.query(Lottery).filter(Lottery.id == lottery_id).first()
-        self.db.delete(lottery_model)
-        self.db.commit()
+        if lottery_model:
+            self.db.delete(lottery_model)
+            self.db.commit()
         return lottery_model
