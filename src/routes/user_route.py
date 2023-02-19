@@ -1,14 +1,14 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from src.infra.config.database import get_db
 from sqlalchemy.orm import Session
-from src.application.entities.user import User, UserCreate
+from src.application.entities.user import User, UserAdmin
 from src.application.service.user_service import UserService
 
 route = APIRouter()
 
 
 @route.post('/user', status_code=status.HTTP_201_CREATED, response_model=User)
-async def create_user(user: UserCreate, db: Session = Depends(get_db)):
+async def create_user(user: UserAdmin, db: Session = Depends(get_db)):
     return UserService(db).create_user(user)
 
 
@@ -18,7 +18,7 @@ async def select_user(user_id: str, db: Session = Depends(get_db)):
 
 
 @route.put('/user/{user_id}', status_code=status.HTTP_200_OK, response_model=User)
-async def update_user(user_id: str, user_updated: UserCreate, db: Session = Depends(get_db)):
+async def update_user(user_id: str, user_updated: UserAdmin, db: Session = Depends(get_db)):
     return UserService(db).update_user(user_id, user_updated)
 
 

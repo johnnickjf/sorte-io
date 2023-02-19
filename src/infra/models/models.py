@@ -28,3 +28,14 @@ class Lottery(Base):
     start_date = Column(String)
     end_date = Column(String)
     created_at = Column(String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
+
+class Number(Base):
+    __tablename__ = 'user_numbers'
+    id = Column(String, primary_key=True, index=True, default=str(uuid.uuid4()))
+    user = Column(String, ForeignKey('users.id', name='fk_user'), nullable=False)
+    lottery = Column(String, ForeignKey('lotteries.id', name='fk_lottery'), nullable=False)
+    number = Column(Integer)
+    sorted = Column(Integer, default=0)
+    status = Column(Integer, default=0)
+    created_at = Column(String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))

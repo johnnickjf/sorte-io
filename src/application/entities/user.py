@@ -1,6 +1,6 @@
+from passlib.context import CryptContext
 from pydantic import EmailStr, Field, BaseModel
 from datetime import datetime
-from uuid import UUID
 
 
 class User(BaseModel):
@@ -14,5 +14,21 @@ class User(BaseModel):
         orm_mode = True
 
 
-class UserCreate(User):
+class UserAdmin(User):
     password: str = Field(..., min_length=8)
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str = Field(default='bearer')
+
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
+
+
+def get_password_hash(password):
+    return pwd_context.hash(password)

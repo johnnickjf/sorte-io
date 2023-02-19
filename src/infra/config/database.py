@@ -5,7 +5,7 @@ import os
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv('.env'))
 
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
+SQLALCHEMY_DATABASE_URL = os.getenv('DATABASE_URL')
 # SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
 
 # O argumento connect_args={"check_same_thread": False} é necessário para o SQLite

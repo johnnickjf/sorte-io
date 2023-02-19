@@ -1,6 +1,5 @@
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
-from src.infra.config.database import get_db
 from src.infra.repositories.lottery_repository import LotteryRepository
 from src.application.entities.lottery import Lottery
 

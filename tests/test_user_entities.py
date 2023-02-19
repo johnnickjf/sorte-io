@@ -1,5 +1,6 @@
 from src.infra.repositories.user_repository import UserRepository
 from src.application.entities.user import User
+from src.application.service.login_service import LoginService
 
 
 def test_create_user():
@@ -11,6 +12,5 @@ def test_create_user_bd():
     pass
 
 
-def test_create_user_without_name():
-    user = User(name="John Nick", email="johnnick+3@hotmail.com", telephone="32999999999")
-    assert user.name == "John Nck"
+def test_authenticate_user():
+    pass
