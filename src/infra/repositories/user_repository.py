@@ -15,7 +15,7 @@ class UserRepository:
         self.db.refresh(user_model)
         return user_model
 
-    def select(self, user_id: int):
+    def select(self, user_id: str):
         user_model = self.db.query(User).filter(User.id == user_id).first()
         return user_model
 
@@ -27,8 +27,8 @@ class UserRepository:
         users_models = self.db.query(User).all()
         return users_models
 
-    def update(self, user_id: int, user: User):
-        user_model = self.db.query(User).filter(User.id == user_id).first()
+    def update(self, user: User):
+        user_model = self.db.query(User).filter(User.id == user.id).first()
         if user_model and user:
             user_model.name = user.name
             user_model.email = user.email
@@ -38,7 +38,7 @@ class UserRepository:
             self.db.refresh(user_model)
         return user_model
 
-    def delete(self, user_id: int):
+    def delete(self, user_id: str):
         user_model = self.db.query(User).filter(User.id == user_id).first()
         if user_model:
             self.db.delete(user_model)

@@ -9,7 +9,7 @@ class LotteryRepository:
 
     def insert(self, lottery: Lottery):
         lottery_model = Lottery(name=lottery.name, description=lottery.description, user=lottery.user,
-                                max_number=lottery.max_number, price=lottery.price)
+                                max_number=lottery.qtd, price=lottery.price)
         self.db.add(lottery_model)
         self.db.commit()
         self.db.refresh(lottery_model)
@@ -32,7 +32,7 @@ class LotteryRepository:
         if lottery_model and lottery:
             lottery_model.name = lottery.name
             lottery_model.description = lottery.description
-            lottery_model.max_number = lottery.max_number
+            lottery_model.qtd = lottery.qtd
             lottery_model.price = lottery.price
             lottery_model.status = lottery.status
             self.db.commit()

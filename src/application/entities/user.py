@@ -1,3 +1,4 @@
+import uuid
 from passlib.context import CryptContext
 from pydantic import EmailStr, Field, BaseModel
 from datetime import datetime
