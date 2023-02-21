@@ -10,7 +10,7 @@ packages = [{include = "sorte_io"}]
 python = "^3.11"
 fastapi = "^0.91.0"
 uvicorn = "^0.20.0"
-pydantic = "^1.10.4"
+pydantic = {extras = ["email"], version = "^1.10.5"}
 sqlalchemy = "^2.0.3"
 python-dotenv = "^0.21.1"
 uuid = "^1.30"
