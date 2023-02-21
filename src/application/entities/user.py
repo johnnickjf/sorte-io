@@ -19,6 +19,11 @@ class UserAdmin(User):
     password: str = Field(..., min_length=8)
 
 
+class LoginData(BaseModel):
+    email: EmailStr = Field(..., error_msg='O email informado é inválido')
+    password: str = Field(..., min_length=8)
+
+
 class Token(BaseModel):
     access_token: str
     token_type: str = Field(default='bearer')

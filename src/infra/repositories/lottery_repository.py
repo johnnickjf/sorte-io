@@ -9,7 +9,7 @@ class LotteryRepository:
 
     def insert(self, lottery: Lottery):
         lottery_model = Lottery(name=lottery.name, description=lottery.description, user=lottery.user,
-                                max_number=lottery.qtd, price=lottery.price)
+                                qtd=lottery.qtd, price=lottery.price)
         self.db.add(lottery_model)
         self.db.commit()
         self.db.refresh(lottery_model)
