@@ -35,9 +35,9 @@ async def say_hello(name: str):
     return {"message": f"Hello {name}"}
 
 
-# @app.middleware("http")
-# async def req_middleware(request: Request, next_call):
-#     print(f"Request: {request}")
-#     response = await next_call(request)
-#     print(f"Response: {response}")
-#     return response
+@app.middleware("http")
+async def req_middleware(request: Request, next_call):
+    print(f"Request: {request.headers}")
+    response = await next_call(request)
+    print(f"Response: {response}")
+    return response

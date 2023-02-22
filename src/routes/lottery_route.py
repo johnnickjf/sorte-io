@@ -35,6 +35,6 @@ async def update_lottery(lottery_updated: Lottery, current_user: User = Depends(
     return LotteryService(db).update_lottery(lottery_updated, current_user)
 
 
-@route.delete('/lottery/', status_code=status.HTTP_200_OK)
+@route.delete('/lottery/', status_code=status.HTTP_200_OK) #Corrigir - Tirar possibilidade de delete e só alterar o status
 async def delete_lottery(lottery_id: str, db: Session = Depends(get_db)):
     return LotteryService(db).delete_lottery(lottery_id)
