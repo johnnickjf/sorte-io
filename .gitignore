@@ -130,4 +130,5 @@ dmypy.json
 .idea/
 
 # Sqlite3
+.db
 sql_app.db
