@@ -12,8 +12,7 @@ class UserService:
         existing_user = self.repository.select_user_by_email(user.email)
         if existing_user:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="User already exists")
-        user.password = get_password_hash(user.password)
-        return self.repository.insert(user)
+        return self.repository.insert_simple(user)
 
     def create_user_admin(self, user: UserAdmin) -> User:
         existing_user = self.repository.select_user_by_email(user.email)
@@ -28,6 +27,12 @@ class UserService:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
         return user
 
+    def get_all_users(self) -> list[User]:
+        users = self.repository.select_all()
+        if not users:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Users not found")
+        return users
+
     def update_user(self, current_user: User, updated_user: UserAdmin) -> User:
         existing_user = self.repository.select_user_by_email(updated_user.email)
         if existing_user and existing_user.id != current_user.id:
@@ -37,12 +42,6 @@ class UserService:
         if updated_user.password:
             current_user.password = get_password_hash(updated_user.password)
         return self.repository.update(current_user)
-
-    def get_all_users(self) -> list[User]:
-        users = self.repository.select_all()
-        if not users:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Users not found")
-        return users
 
     def delete_user(self, current_user: User) -> None:
         existing_user = self.repository.select(current_user.id)

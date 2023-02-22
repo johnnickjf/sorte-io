@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-
 from src.application.entities.user import User
 from src.application.service.login_service import get_current_user
 from src.infra.config.database import get_db
@@ -11,7 +10,8 @@ route = APIRouter()
 
 
 @route.post('/lottery/', status_code=status.HTTP_201_CREATED)
-async def create_lottery(lottery: Lottery, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+async def create_lottery(lottery: Lottery, current_user: User = Depends(get_current_user),
+                         db: Session = Depends(get_db)):
     return LotteryService(db).create_lottery(lottery, current_user)
 
 
@@ -31,10 +31,11 @@ async def select_all_lotteries(db: Session = Depends(get_db)):
 
 
 @route.put('/lottery', status_code=status.HTTP_200_OK)
-async def update_lottery(lottery_updated: Lottery, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+async def update_lottery(lottery_updated: Lottery, current_user: User = Depends(get_current_user),
+                         db: Session = Depends(get_db)):
     return LotteryService(db).update_lottery(lottery_updated, current_user)
 
 
-@route.delete('/lottery/', status_code=status.HTTP_200_OK) #Corrigir - Tirar possibilidade de delete e só alterar o status
+@route.delete('/lottery/', status_code=status.HTTP_200_OK)  # incorrect
 async def delete_lottery(lottery_id: str, db: Session = Depends(get_db)):
     return LotteryService(db).delete_lottery(lottery_id)

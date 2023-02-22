@@ -30,6 +30,6 @@ async def select_all_users(db: Session = Depends(get_db)):
     return UserService(db).get_all_users()
 
 
-@route.delete('/user/', status_code=status.HTTP_200_OK)#Corrigir - Tirar possibilidade de delete e só alterar o status
+@route.delete('/user/', status_code=status.HTTP_200_OK)  # incorrect
 async def delete_user(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     return UserService(db).delete_user(current_user)

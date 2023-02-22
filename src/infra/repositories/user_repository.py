@@ -15,6 +15,13 @@ class UserRepository:
         self.db.refresh(user_model)
         return user_model
 
+    def insert_simple(self, user: User):
+        user_model = User(name=user.name, email=user.email, telephone=user.telephone)
+        self.db.add(user_model)
+        self.db.commit()
+        self.db.refresh(user_model)
+        return user_model
+
     def select(self, user_id: str):
         user_model = self.db.query(User).filter(User.id == user_id).first()
         return user_model

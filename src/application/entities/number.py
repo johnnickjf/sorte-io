@@ -1,5 +1,7 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
+from src.application.entities.user import User
+from src.application.entities.lottery import Lottery
 
 
 class Number(BaseModel):
@@ -7,8 +9,6 @@ class Number(BaseModel):
     user: str = Field(...)
     lottery: str = Field(...)
     number: int = Field(..., gt=0)
-    sorted: bool = Field(False)
-    status: int = Field(0, ge=0, le=2)
     created_at: datetime = None
 
     class Config:
