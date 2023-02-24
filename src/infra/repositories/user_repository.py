@@ -7,7 +7,7 @@ class UserRepository:
     def __init__(self, db: Session):
         self.db = db
 
-    def insert(self, user: User):
+    def insert(self, user: User) -> User:
         user_model = User(name=user.name, password=user.password,
                           email=user.email, telephone=user.telephone)
         self.db.add(user_model)
@@ -15,26 +15,26 @@ class UserRepository:
         self.db.refresh(user_model)
         return user_model
 
-    def insert_simple(self, user: User):
+    def insert_simple(self, user: User) -> User:
         user_model = User(name=user.name, email=user.email, telephone=user.telephone)
         self.db.add(user_model)
         self.db.commit()
         self.db.refresh(user_model)
         return user_model
 
-    def select(self, user_id: str):
+    def select(self, user_id: str) -> User:
         user_model = self.db.query(User).filter(User.id == user_id).first()
         return user_model
 
-    def select_user_by_email(self, email: str):
+    def select_user_by_email(self, email: str) -> User:
         user_model = self.db.query(User).filter(User.email == email).first()
         return user_model
 
-    def select_all(self):
+    def select_all(self) -> list[User]:
         users_models = self.db.query(User).all()
         return users_models
 
-    def update(self, user: User):
+    def update(self, user: User) -> User:
         user_model = self.db.query(User).filter(User.id == user.id).first()
         if user_model and user:
             user_model.name = user.name
@@ -45,7 +45,7 @@ class UserRepository:
             self.db.refresh(user_model)
         return user_model
 
-    def delete(self, user_id: str):
+    def delete(self, user_id: str) -> None:
         user_model = self.db.query(User).filter(User.id == user_id).first()
         if user_model:
             self.db.delete(user_model)

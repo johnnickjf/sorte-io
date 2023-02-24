@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from src.infra.repositories.user_repository import UserRepository
+from src.application.providers.hash_provider import *
 from src.application.entities.user import *
 from fastapi import HTTPException, status
 

@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
-from src.application.entities.user import Token, verify_password
+from src.application.entities.user import Token
+from src.application.providers.hash_provider import *
 from src.infra.config.database import get_db
 from src.infra.repositories.user_repository import UserRepository
 from fastapi import Depends, HTTPException, status

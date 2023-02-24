@@ -1,16 +1,32 @@
-from src.infra.repositories.user_repository import UserRepository
-from src.application.entities.user import User
-from src.application.service.login_service import LoginService
+from fastapi import HTTPException
+from src.application.service.user_service import UserService
+import unittest
+from unittest.mock import MagicMock
 
 
-def test_create_user():
-    user = User(name="John Nick", email="testando@gmail.com", telephone="32999999999", password="123456")
-    assert user is not None
+class TestUserService(unittest.TestCase):
 
+    def setUp(self):
+        self.db = MagicMock()
+        self.user_repo = MagicMock()
+        self.db.session.query.return_value.filter_by.return_value.first.return_value = None
+        self.user_service = UserService(self.db)
 
-def test_create_user_bd():
-    pass
+    def test_create_user_success(self):
+        self.user_service.repository = self.user_repo
+        user = MagicMock()
+        user.email = "test@example.com"
+        self.user_repo.select_user_by_email.return_value = None
+        self.user_repo.insert_simple.return_value = user
+        result = self.user_service.create_user(user)
+        self.assertEqual(result, user)
 
-
-def test_authenticate_user():
-    pass
+    def test_create_user_already_exists(self):
+        self.user_service.repository = self.user_repo
+        user = MagicMock()
+        user.email = "test@example.com"
+        self.user_repo.select_user_by_email.return_value = user
+        with self.assertRaises(HTTPException) as context:
+            self.user_service.create_user(user)
+        self.assertEqual(context.exception.status_code, 400)
+        self.assertEqual(context.exception.detail, "User already exists")

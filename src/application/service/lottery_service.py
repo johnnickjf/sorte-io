@@ -1,16 +1,16 @@
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
-
 from src.application.entities.user import User
 from src.infra.repositories.lottery_repository import LotteryRepository
-from src.application.entities.lottery import Lottery
+from src.application.entities.lottery import Lottery, CreateLottery
+from src.application.service.user_service import UserService
 
 
 class LotteryService:
     def __init__(self, db: Session):
         self.repository = LotteryRepository(db)
 
-    def create_lottery(self, lottery: Lottery, user: User) -> Lottery:
+    def create_lottery(self, lottery: CreateLottery, user: User) -> Lottery:
         lottery.user = user.id
         existing_lottery = self.repository.select(lottery.id)
         if existing_lottery:

@@ -29,7 +29,7 @@ POST http://127.0.0.1:8000/register
 Content-Type: application/json
 
 {
-    "name": "John Nick",
+    "name": "JohnNick",
     "password": "senha123",
     "email": "johnnick5@hotmail.com",
     "telephone": "32999999999"

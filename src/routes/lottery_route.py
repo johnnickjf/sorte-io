@@ -1,16 +1,17 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from src.application.entities.user import User
 from src.application.service.login_service import get_current_user
+from src.application.service.user_service import UserService
 from src.infra.config.database import get_db
 from sqlalchemy.orm import Session
-from src.application.entities.lottery import Lottery
+from src.application.entities.lottery import Lottery, CreateLottery
 from src.application.service.lottery_service import LotteryService
 
 route = APIRouter()
 
 
 @route.post('/lottery/', status_code=status.HTTP_201_CREATED)
-async def create_lottery(lottery: Lottery, current_user: User = Depends(get_current_user),
+async def create_lottery(lottery: CreateLottery, current_user: User = Depends(get_current_user),
                          db: Session = Depends(get_db)):
     return LotteryService(db).create_lottery(lottery, current_user)
 
