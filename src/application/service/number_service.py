@@ -29,8 +29,8 @@ class NumberService:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Number not found")
         return self.repository.select_by_id(number_id)
 
-    def select_all_numbers(self) -> list[Number]:
-        numbers = self.repository.select_all()
+    def select_last_numbers(self) -> list[Number]:
+        numbers = self.repository.select_last_numbers()
         if not numbers:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Numbers not found")
         return numbers
