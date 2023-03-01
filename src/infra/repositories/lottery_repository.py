@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from src.infra.models.models import Lottery, User
+from src.infra.models.models import LotteryORM, UserORM
 
 
 class LotteryRepository:
@@ -7,28 +7,28 @@ class LotteryRepository:
     def __init__(self, db: Session):
         self.db = db
 
-    def insert(self, lottery: Lottery) -> Lottery:
-        lottery_model = Lottery(name=lottery.name, description=lottery.description, user=lottery.user,
-                                qtd=lottery.qtd, price=lottery.price)
+    def insert(self, lottery: LotteryORM) -> LotteryORM:
+        lottery_model = LotteryORM(name=lottery.name, description=lottery.description, user=lottery.user,
+                                   qtd=lottery.qtd, price=lottery.price)
         self.db.add(lottery_model)
         self.db.commit()
         self.db.refresh(lottery_model)
         return lottery_model
 
-    def select(self, lottery_id: str) -> Lottery:
-        lottery_model = self.db.query(Lottery).filter(Lottery.id == lottery_id).first()
+    def select_by_id(self, lottery_id: str) -> LotteryORM:
+        lottery_model = self.db.query(LotteryORM).filter(LotteryORM.id == lottery_id).first()
         return lottery_model
 
-    def select_by_user(self, user_id: str) -> list[Lottery]:
-        lottery_model = self.db.query(Lottery).filter(Lottery.user == user_id).all()
+    def select_by_user(self, user_id: str) -> list[LotteryORM]:
+        lottery_model = self.db.query(LotteryORM).filter(LotteryORM.user == user_id).all()
         return lottery_model
 
-    def select_all(self) -> list[Lottery]:
-        lotteries_models = self.db.query(Lottery).all()
+    def select_all(self) -> list[LotteryORM]:
+        lotteries_models = self.db.query(LotteryORM).all()
         return lotteries_models
 
-    def update(self, lottery: Lottery) -> Lottery:
-        lottery_model = self.db.query(Lottery).filter(Lottery.id == lottery.id).first()
+    def update(self, lottery: LotteryORM) -> LotteryORM:
+        lottery_model = self.db.query(LotteryORM).filter(LotteryORM.id == lottery.id).first()
         if lottery_model and lottery:
             lottery_model.name = lottery.name
             lottery_model.description = lottery.description
@@ -39,8 +39,8 @@ class LotteryRepository:
             self.db.refresh(lottery_model)
         return lottery_model
 
-    def delete(self, lottery_id: str) -> None:
-        lottery_model = self.db.query(Lottery).filter(Lottery.id == lottery_id).first()
+    def delete_by_id(self, lottery_id: str) -> None:
+        lottery_model = self.db.query(LotteryORM).filter(LotteryORM.id == lottery_id).first()
         if lottery_model:
             self.db.delete(lottery_model)
             self.db.commit()

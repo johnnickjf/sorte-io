@@ -13,7 +13,19 @@ class User(BaseModel):
         orm_mode = True
 
 
-class UserAdmin(User):
+class UserSimple(BaseModel):
+    name: str = Field(min_length=3, max_length=50)
+    email: EmailStr
+    telephone: str = Field(min_length=8, max_length=15)
+
+    class Config:
+        orm_mode = True
+
+
+class UserAdmin(BaseModel):
+    name: str = Field(min_length=3, max_length=50)
+    email: EmailStr
+    telephone: str = Field(min_length=8, max_length=15)
     password: str
 
     @validator('password')
@@ -37,4 +49,3 @@ class LoginData(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str = Field(default='bearer')
-

@@ -1,13 +1,14 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from src.infra.config.database import create_db, drop_db
-from src.routes import user_route, lottery_route, login_route, number_route
+from src.routes import user_route, lottery_route, login_route, number_route, payment_route
 
 app = FastAPI()
 app.include_router(user_route.route, tags=["user"])
 app.include_router(lottery_route.route, tags=["lottery"])
 app.include_router(login_route.router, tags=["auth"])
 app.include_router(number_route.route, tags=["number"])
+app.include_router(payment_route.route, tags=["payment"])
 
 origins = [
     "http://localhost",

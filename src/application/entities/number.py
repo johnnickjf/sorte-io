@@ -11,3 +11,11 @@ class Number(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class CreateNumber(BaseModel):
+    user: str
+    lottery: str
+
+    class Config:
+        orm_mode = True

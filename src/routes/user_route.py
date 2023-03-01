@@ -1,17 +1,22 @@
 from fastapi import APIRouter, HTTPException, Depends, status
-
+from src.infra.models.models import UserORM
 from src.application.service.login_service import get_current_user
 from src.infra.config.database import get_db
 from sqlalchemy.orm import Session
-from src.application.entities.user import User, UserAdmin
+from src.application.entities.user import User, UserAdmin, UserSimple
 from src.application.service.user_service import UserService
 
 route = APIRouter()
 
 
-@route.post('/user', status_code=status.HTTP_201_CREATED, response_model=User)
+@route.post('/user_register', status_code=status.HTTP_201_CREATED, response_model=User)
 async def create_user(user: UserAdmin, db: Session = Depends(get_db)):
     return UserService(db).create_user_admin(user)
+
+
+@route.post('/user', status_code=status.HTTP_201_CREATED, response_model=User)
+async def create_user(user: UserSimple, db: Session = Depends(get_db)):
+    return UserService(db).create_user(user)
 
 
 @route.get('/user/{user_id}', status_code=status.HTTP_200_OK, response_model=User)

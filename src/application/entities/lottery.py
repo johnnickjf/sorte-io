@@ -34,3 +34,18 @@ class CreateLottery(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class UpdateLottery(BaseModel):
+    id: str = None
+    name: str = Field(max_length=100)
+    description: str = Field(min_length=30, max_length=500)
+    price: Decimal = Field(Decimal(0.0), gt=-1)
+    status: int = Field(0, ge=0, le=2)
+    qtd: int = None
+    start_date: datetime = None
+    end_date: datetime = None
+    winner: str = None
+
+    class Config:
+        orm_mode = True

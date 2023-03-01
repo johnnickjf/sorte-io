@@ -9,7 +9,7 @@ class UserService:
     def __init__(self, db: Session):
         self.repository = UserRepository(db)
 
-    def create_user(self, user: User) -> User:
+    def create_user(self, user: UserSimple) -> User:
         existing_user = self.repository.select_user_by_email(user.email)
         if existing_user:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="User already exists")
@@ -40,6 +40,7 @@ class UserService:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered")
         current_user.name = updated_user.name
         current_user.email = updated_user.email
+        current_user.telephone = updated_user.telephone
         if updated_user.password:
             current_user.password = get_password_hash(updated_user.password)
         return self.repository.update(current_user)

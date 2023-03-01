@@ -4,7 +4,7 @@ from src.application.service.login_service import get_current_user
 from src.application.service.user_service import UserService
 from src.infra.config.database import get_db
 from sqlalchemy.orm import Session
-from src.application.entities.lottery import Lottery, CreateLottery
+from src.application.entities.lottery import Lottery, CreateLottery, UpdateLottery
 from src.application.service.lottery_service import LotteryService
 
 route = APIRouter()
@@ -32,7 +32,7 @@ async def select_all_lotteries(db: Session = Depends(get_db)):
 
 
 @route.put('/lottery', status_code=status.HTTP_200_OK)
-async def update_lottery(lottery_updated: Lottery, current_user: User = Depends(get_current_user),
+async def update_lottery(lottery_updated: UpdateLottery, current_user: User = Depends(get_current_user),
                          db: Session = Depends(get_db)):
     return LotteryService(db).update_lottery(lottery_updated, current_user)
 
