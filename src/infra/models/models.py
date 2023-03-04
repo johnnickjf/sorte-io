@@ -52,3 +52,12 @@ class PaymentORM(Base):
     qtd = Column(Integer)
     status = Column(Integer, default=0)
     payment_date = Column(String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
+
+class LastNumberORM(Base):
+    __tablename__ = 'last_numbers'
+    id = Column(String, primary_key=True, index=True, default=lambda: str(uuid.uuid4()))
+    lottery = Column(String, ForeignKey('lotteries.id', name='fk_payment_lottery'), nullable=False)
+    last_number = Column(Integer, default=0)
+    old_last_number = Column(Integer, default=0)
+    updated_at = Column(String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))

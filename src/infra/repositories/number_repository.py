@@ -1,7 +1,6 @@
-from typing import Type
-
+from datetime import datetime
 from sqlalchemy.orm import Session
-from src.infra.models.models import NumberORM
+from src.infra.models.models import NumberORM, LastNumberORM
 
 
 class NumberRepository:
@@ -32,12 +31,30 @@ class NumberRepository:
         numbers_models = self.db.query(NumberORM).filter(NumberORM.user == user_id).all()
         return numbers_models
 
-    def select_last_number_for_lottery(self, lottery_id: str) -> NumberORM | None:
-        number = self.db.query(NumberORM).filter_by(lottery=lottery_id).order_by(NumberORM.number.desc()).first()
-        return number.number if number else None
+    def create_last_number_for_lottery(self, lottery_id: str) -> LastNumberORM:
+        last = LastNumberORM(lottery=lottery_id)
+        self.db.add(last)
+        self.db.commit()
+        return last
+
+    def select_last_number_for_lottery(self, lottery_id: str) -> LastNumberORM:
+        last = self.db.query(LastNumberORM).filter(LastNumberORM.lottery == lottery_id).first()
+        return last
+
+    def update_last_number_for_lottery(self, last_id: str, new_total: int) -> LastNumberORM:
+        search = self.db.query(LastNumberORM).filter(LastNumberORM.id == last_id).first()
+        if search:
+            print(search.last_number)
+            search.old_last_number = search.last_number
+            search.last_number = new_total
+            search.updated_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            self.db.commit()
+            self.db.refresh(search)
+        return search
 
     def select_number_lottery(self, number: int, lottery_id: str) -> NumberORM:
-        number_model = self.db.query(NumberORM).filter(NumberORM.number == number, NumberORM.lottery == lottery_id).first()
+        number_model = self.db.query(NumberORM).filter(NumberORM.number == number,
+                                                       NumberORM.lottery == lottery_id).first()
         return number_model
 
     def select_all(self) -> list[NumberORM]:
@@ -51,7 +68,7 @@ class NumberRepository:
     def update(self, number: NumberORM) -> NumberORM:
         number_model = self.db.query(NumberORM).filter(NumberORM.id == number.id).first()
         if number_model and number:
-            number_model.number = number.number
+            number_model.last_number = number.number
             self.db.commit()
             self.db.refresh(number_model)
         return number_model
