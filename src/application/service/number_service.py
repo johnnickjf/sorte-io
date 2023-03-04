@@ -13,7 +13,7 @@ class NumberService:
     def create_number(self, pay: Payment) -> list[Number]:
         if pay.status != 1:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Payment not confirmed")
-        last_num = self.repository.get_last_number_for_lottery(pay.lottery)
+        last_num = self.repository.select_last_number_for_lottery(pay.lottery)
         if not last_num:
             last_num = 0
         numbers = []

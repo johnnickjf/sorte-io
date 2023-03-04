@@ -35,6 +35,8 @@ class LotteryRepository:
             lottery_model.qtd = lottery.qtd
             lottery_model.price = lottery.price
             lottery_model.status = lottery.status
+            lottery_model.start_date = lottery.start_date
+            lottery_model.end_date = lottery.end_date
             self.db.commit()
             self.db.refresh(lottery_model)
         return lottery_model

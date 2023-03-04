@@ -22,6 +22,7 @@ class UpdatePayment(BaseModel):
     class Config:
         orm_mode = True
 
+
 class CreatePayment(BaseModel):
     user: str
     lottery: str

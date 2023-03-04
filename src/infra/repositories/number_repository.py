@@ -32,7 +32,7 @@ class NumberRepository:
         numbers_models = self.db.query(NumberORM).filter(NumberORM.user == user_id).all()
         return numbers_models
 
-    def get_last_number_for_lottery(self, lottery_id: str) -> NumberORM | None:
+    def select_last_number_for_lottery(self, lottery_id: str) -> NumberORM | None:
         number = self.db.query(NumberORM).filter_by(lottery=lottery_id).order_by(NumberORM.number.desc()).first()
         return number.number if number else None
 

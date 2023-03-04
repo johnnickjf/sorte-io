@@ -1,9 +1,7 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from src.application.entities.user import User
-from src.application.service.login_service import get_current_user
+from fastapi import APIRouter, Depends, status
 from src.infra.config.database import get_db
 from sqlalchemy.orm import Session
-from src.application.entities.number import Number, CreateNumber
+from src.application.entities.number import Number
 from src.application.service.number_service import NumberService
 
 route = APIRouter()

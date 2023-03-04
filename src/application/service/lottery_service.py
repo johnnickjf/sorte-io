@@ -8,13 +8,11 @@ from src.application.service.user_service import UserService
 
 class LotteryService:
     def __init__(self, db: Session):
+        self.db = db
         self.repository = LotteryRepository(db)
 
     def create_lottery(self, lottery: CreateLottery, user: User) -> Lottery:
         lottery.user = user.id
-        existing_lottery = self.repository.select_by_id(lottery.id)
-        if existing_lottery:
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Lottery already exists")
         return self.repository.insert(lottery)
 
     def select_lottery(self, lottery_id: str) -> Lottery:
@@ -22,6 +20,20 @@ class LotteryService:
         if not lottery:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lottery not found")
         return lottery
+
+    def select_lottery_with_user(self, lottery_id: str) -> Lottery:
+        lottery = self.select_lottery(lottery_id)
+        lottery.user = UserService(self.db).select_user(lottery.user)
+        if lottery.winner:
+            winner = UserService(self.db).select_user(lottery.winner)
+            lottery.winner = winner
+        return lottery
+
+    def verify_existing_lottery(self, lottery_id: str) -> bool:
+        lottery = self.repository.select_by_id(lottery_id)
+        if not lottery:
+            return False
+        return True
 
     def select_user_lotteries(self, user: User) -> list[Lottery]:
         lotteries = self.repository.select_by_user(user.id)
@@ -42,7 +54,5 @@ class LotteryService:
         return self.repository.update(lottery_updated)
 
     def delete_lottery(self, lottery_id: str) -> None:
-        lottery = self.repository.delete_by_id(lottery_id)
-        if not lottery:
-            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lottery not found")
-        return lottery
+        self.select_lottery(lottery_id)
+        return self.repository.delete_by_id(lottery_id)

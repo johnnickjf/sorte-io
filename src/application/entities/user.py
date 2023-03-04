@@ -13,7 +13,7 @@ class User(BaseModel):
         orm_mode = True
 
 
-class UserSimple(BaseModel):
+class SimpleUser(BaseModel):
     name: str = Field(min_length=3, max_length=50)
     email: EmailStr
     telephone: str = Field(min_length=8, max_length=15)
@@ -27,6 +27,25 @@ class UserAdmin(BaseModel):
     email: EmailStr
     telephone: str = Field(min_length=8, max_length=15)
     password: str
+
+    @validator('password')
+    def validate_password(v):
+        if len(v) < 8:
+            raise ValueError('A senha deve ter pelo menos 8 caracteres')
+        if not any(char.isupper() for char in v):
+            raise ValueError('A senha deve conter pelo menos uma letra maiúscula')
+        if not any(char.islower() for char in v):
+            raise ValueError('A senha deve conter pelo menos uma letra minúscula')
+        if not any(char.isdigit() for char in v):
+            raise ValueError('A senha deve conter pelo menos um número')
+        return v
+
+
+class UpdateUser(BaseModel):
+    name: str = Field(min_length=3, max_length=50)
+    email: EmailStr
+    telephone: str = Field(min_length=8, max_length=15)
+    password: str = None
 
     @validator('password')
     def validate_password(v):
