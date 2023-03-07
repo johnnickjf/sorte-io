@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from src.infra.models.models import LotteryORM, UserORM
+from src.infra.models.models import LotteryORM
 
 
 class LotteryRepository:

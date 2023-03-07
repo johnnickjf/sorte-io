@@ -1,6 +1,6 @@
 from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
-from src.application.entities.payment import Payment, CreatePayment, UpdatePayment
+from src.application.entities.payment import Payment, UpdatePayment
 from src.application.service.lottery_service import LotteryService
 from src.application.service.number_service import NumberService
 from src.infra.repositories.payment_repository import PaymentRepository

@@ -2,7 +2,7 @@ from fastapi import HTTPException, status
 from sqlalchemy.orm import Session
 from src.application.entities.number import Number
 from src.application.entities.payment import Payment
-from src.infra.models.models import NumberORM, LastNumberORM
+from src.infra.models.models import NumberORM
 from src.infra.repositories.number_repository import NumberRepository
 
 
