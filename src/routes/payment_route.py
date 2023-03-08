@@ -35,7 +35,3 @@ async def select_user_payments(user_id: str, db: Session = Depends(get_db)):
 @route.put('/payment', status_code=status.HTTP_200_OK, response_model=Payment)
 async def update_payment(updated_payment: UpdatePayment, db: Session = Depends(get_db)):
     return PaymentService(db).update_payment_status(updated_payment)
-
-
-
-
