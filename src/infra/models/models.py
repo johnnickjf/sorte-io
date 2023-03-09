@@ -35,6 +35,7 @@ class NumberORM(Base):
     id = Column(String, primary_key=True, index=True, default=lambda: str(uuid.uuid4()))
     user = Column(String, ForeignKey('users.id', name='fk_number_user'), nullable=False)
     lottery = Column(String, ForeignKey('lotteries.id', name='fk_number_lottery'), nullable=False)
+    payment = Column(String, ForeignKey('payments.id', name='fk_number_payment'), nullable=False)
     number = Column(Integer)
     created_at = Column(String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
@@ -51,6 +52,7 @@ class PaymentORM(Base):
     price = Column(Numeric(precision=10, scale=2))
     qtd = Column(Integer)
     status = Column(Integer, default=0)
+    updated_at = Column(String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     payment_date = Column(String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 

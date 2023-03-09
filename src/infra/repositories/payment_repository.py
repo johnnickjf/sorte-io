@@ -1,3 +1,4 @@
+from datetime import datetime
 from sqlalchemy.orm import Session
 from src.infra.models.models import PaymentORM
 
@@ -35,6 +36,7 @@ class PaymentRepository:
         payment_model = self.db.query(PaymentORM).filter(PaymentORM.id == payment.id).first()
         if payment_model and payment:
             payment_model.status = payment.status
+            payment_model.updated_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             self.db.commit()
             self.db.refresh(payment_model)
         return payment_model

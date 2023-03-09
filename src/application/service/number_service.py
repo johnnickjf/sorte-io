@@ -17,7 +17,7 @@ class NumberService:
         numbers = []
         for i in range(pay.qtd):
             next_num = last_num + i + 1
-            number = NumberORM(user=pay.user, lottery=pay.lottery, number=next_num)
+            number = NumberORM(user=pay.user, lottery=pay.lottery, payment=pay.id, number=next_num)
             numbers.append(number)
         return self.repository.insert(numbers)
 

@@ -8,10 +8,10 @@ class NumberRepository:
     def __init__(self, db: Session):
         self.db = db
 
-    def insert(self, number: list[NumberORM]) -> True:
+    def insert(self, numbers: list[NumberORM]) -> True:
         try:
-            for n in number:
-                number_model = NumberORM(user=n.user, number=n.number, lottery=n.lottery)
+            for n in numbers:
+                number_model = NumberORM(user=n.user, lottery=n.lottery, payment=n.payment, number=n.number)
                 self.db.add(number_model)
             self.db.commit()
             return True
