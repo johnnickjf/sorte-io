@@ -30,5 +30,3 @@ async def select_numbers(lottery_id: str, db: Session = Depends(get_db)):
 @route.get('/user_numbers', status_code=status.HTTP_200_OK, response_model=list[Number])
 async def select_user_numbers(user_id: str, db: Session = Depends(get_db)):
     return NumberService(db).select_user_numbers(user_id)
-
-
