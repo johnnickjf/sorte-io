@@ -8,6 +8,19 @@ The goal of this project is to create from scratch a **lottery** web application
 
 ***This repository is for the purposes of studies.***
 
+# 📚 Commit Message Guidelines
+
+- FEAT: Incluindo um novo recurso.
+- FIX: Solucionando um bug.
+- DOCS: Mudanças na documentação. Ex.: Readme.
+- TEST: Alterações em testes.
+- BUILD: Modificações em arquivos de build e dependências.
+- RERF: Alterações relacionadas a performance.
+- STYLE: Alterações referentes a formatações de código, semicolons, trailing spaces, lint...
+- CHORE: Atualizações de tarefas de build, configurações, pacotes... Ex.: adicionar pacote no gitignore.
+- CI: Mudanças relacionadas a integração contínua.
+- REFACTOR: Refatorações que não alterem sua funcionalidade, ou melhorias de performance devido a um code review.
+
 ## 📑 Environment Variables
 
 * **DATABASE_URL='bd'**
